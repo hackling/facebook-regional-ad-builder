@@ -1,5 +1,3 @@
-require 'colorize'
-require 'pry'
 require 'json'
 require 'csv'
 
@@ -83,22 +81,22 @@ def build(suburb, postcode)
   loop do
     thumbnail_response = thumbnails(video_id)
     break if JSON.parse(thumbnail_response)["data"] != []
-    puts thumbnail_response.yellow
-    puts "Retrying to get thumbnails".red
+    puts thumbnail_response
+    puts "Retrying to get thumbnails"
     sleep(5)
   end
-  puts thumbnail_response.yellow
+  puts thumbnail_response
   thumbnail_url = JSON.parse(thumbnail_response)["data"].last["uri"]
 
-  puts "Creating Ad Creative".green
+  puts "Creating Ad Creative"
   ad_creative_response = create_ad_creative(
     video_id,
     thumbnail_url
   )
-  puts ad_creative_response.yellow
+  puts ad_creative_response
   ad_creative_id = JSON.parse(ad_creative_response)["id"]
 
-  puts "Creating Ad".green
+  puts "Creating Ad"
   response = create_ad(suburb, ad_set_id, ad_creative_id)
 
   puts JSON.parse(response)
