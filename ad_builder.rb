@@ -65,16 +65,16 @@ def create_ad(suburb, ad_set_id, ad_creative_id)
 end
 
 def build(suburb, postcode)
-  puts "Building Ads for #{suburb}".green
-  puts "Creating Ad Set".green
+  puts "Building Ads for #{suburb}"
+  puts "Creating Ad Set"
   ad_set_response = create_ad_set(suburb, postcode)
-  puts ad_set_response.yellow
+  puts ad_set_response
   ad_set_id = JSON.parse(ad_set_response)["id"]
 
 
-  puts "Uploading Video".green
+  puts "Uploading Video"
   video_upload_response = upload_video(suburb)
-  puts video_upload_response.yellow
+  puts video_upload_response
   video_id = JSON.parse(video_upload_response)["id"]
 
   thumbnail_response = nil
